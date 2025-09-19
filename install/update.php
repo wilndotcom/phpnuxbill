@@ -49,7 +49,7 @@
     `paid_date` datetime DEFAULT NULL,
     `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1 unpaid 2 paid 3 failed 4 canceled'
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;\n\n";
-                    $dbh->exec("CREATE TABLE
+                    $dbh->exec("CREATE TABLE IF NOT EXISTS
                         `tbl_payment_gateway` (
                             `id` int(11) NOT NULL,
                             `username` varchar(32) COLLATE utf8mb4_general_ci NOT NULL,
@@ -71,18 +71,35 @@
                             `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1 unpaid 2 paid 3 failed 4 canceled'
                         ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;");
 
-                    echo "ALTER TABLE `tbl_payment_gateway` ADD PRIMARY KEY (`id`);\n\n";
-                    $dbh->exec("ALTER TABLE `tbl_payment_gateway` ADD PRIMARY KEY (`id`);");
+                    $stmt = $dbh->prepare("SELECT CONSTRAINT_NAME FROM information_schema.table_constraints WHERE CONSTRAINT_TYPE = 'PRIMARY KEY' AND TABLE_SCHEMA = :db_name AND TABLE_NAME = 'tbl_payment_gateway'");
+                    $stmt->bindParam(':db_name', $db_name);
+                    $stmt->execute();
+                    if ($stmt->rowCount() == 0) {
+                        echo "ALTER TABLE `tbl_payment_gateway` ADD PRIMARY KEY (`id`);\n\n";
+                        $dbh->exec("ALTER TABLE `tbl_payment_gateway` ADD PRIMARY KEY (`id`);");
+                    }
+
                     echo "ALTER TABLE `tbl_payment_gateway` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;\n\n";
                     $dbh->exec("ALTER TABLE `tbl_payment_gateway` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;");
 
-                    echo "ALTER TABLE `tbl_customers` ADD `email` VARCHAR(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' AFTER `phonenumber`;\n\n";
-                    $dbh->exec("ALTER TABLE `tbl_customers` ADD `email` VARCHAR(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' AFTER `phonenumber`;");
+                    $stmt = $dbh->prepare("SELECT COLUMN_NAME FROM information_schema.columns WHERE TABLE_SCHEMA = :db_name AND TABLE_NAME = 'tbl_customers' AND COLUMN_NAME = 'email'");
+                    $stmt->bindParam(':db_name', $db_name);
+                    $stmt->execute();
+                    if ($stmt->rowCount() == 0) {
+                        echo "ALTER TABLE `tbl_customers` ADD `email` VARCHAR(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' AFTER `phonenumber`;\n\n";
+                        $dbh->exec("ALTER TABLE `tbl_customers` ADD `email` VARCHAR(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' AFTER `phonenumber`;");
+                    }
 
                     echo "ALTER TABLE `tbl_plans` CHANGE `validity_unit` `validity_unit` ENUM('Mins','Hrs','Days','Months') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL;\n\n";
                     $dbh->exec("ALTER TABLE `tbl_plans` CHANGE `validity_unit` `validity_unit` ENUM('Mins','Hrs','Days','Months') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL");
-                    echo "ALTER TABLE `tbl_plans` ADD `enabled` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0 disabled' AFTER `pool`;\n\n";
-                    $dbh->exec("ALTER TABLE `tbl_plans` ADD `enabled` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0 disabled' AFTER `pool`;");
+                    
+                    $stmt = $dbh->prepare("SELECT COLUMN_NAME FROM information_schema.columns WHERE TABLE_SCHEMA = :db_name AND TABLE_NAME = 'tbl_plans' AND COLUMN_NAME = 'enabled'");
+                    $stmt->bindParam(':db_name', $db_name);
+                    $stmt->execute();
+                    if ($stmt->rowCount() == 0) {
+                        echo "ALTER TABLE `tbl_plans` ADD `enabled` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0 disabled' AFTER `pool`;\n\n";
+                        $dbh->exec("ALTER TABLE `tbl_plans` ADD `enabled` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0 disabled' AFTER `pool`;");
+                    }
 
                     echo "ALTER TABLE `tbl_routers` ADD `enabled` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0 disabled' AFTER `description`;\n\n";
                     $dbh->exec("ALTER TABLE `tbl_routers` ADD `enabled` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0 disabled' AFTER `description`;");
