@@ -1,0 +1,63 @@
+M-Pesa C2B Payment Gateway Installation Guide
+===============================================
+
+Prerequisites
+-------------
+- PHP Mikrotik Billing system
+- Valid M-Pesa C2B account
+- Publicly accessible server for callback URLs
+
+Installation Steps
+------------------
+
+1. M-Pesa Daraja Setup
+   a. Visit https://developer.safaricom.co.ke
+   b. Create a new application
+   c. Get Consumer Key and Consumer Secret
+   d. Configure C2B settings and get Shortcode and Passkey
+
+2. Module Installation
+   a. Copy the paymentgateway/ directory to your project root
+   b. Copy payment.php to system/paymentgateway/mpesa_c2b.php
+   c. Copy ui/payment.tpl to system/paymentgateway/ui/mpesa_c2b.tpl
+   d. Ensure the callback URL is accessible: yourdomain.com/callback/mpesa_c2b
+
+3. Configuration
+   a. Go to Admin Panel > Payment Gateway > M-Pesa C2B
+   b. Enter your M-Pesa credentials:
+      - Shortcode
+      - Passkey
+      - Consumer Key
+      - Consumer Secret
+   c. Select Environment (Sandbox for testing, Live for production)
+   d. Save the configuration
+
+4. Enable Payment Gateway
+   a. Go to Admin Panel > Payment Gateway
+   b. Check M-Pesa C2B to enable it
+   c. Save changes
+
+5. Testing
+   a. Use Sandbox environment first
+   b. Create a test transaction
+   c. Verify STK Push is received on phone
+   d. Confirm payment processing
+
+Callback URL Configuration
+-------------------------
+In your M-Pesa Daraja application, set the callback URL to:
+https://yourdomain.com/callback/mpesa_c2b
+
+Make sure this URL is publicly accessible and uses HTTPS in production.
+
+Troubleshooting
+---------------
+- Check system logs for errors
+- Verify M-Pesa credentials are correct
+- Ensure callback URL is accessible
+- Test with Sandbox environment first
+- Check phone number format (should start with 254)
+
+Support
+-------
+For issues or questions, check the changelog.txt or contact the developer.

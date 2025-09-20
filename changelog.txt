@@ -1,0 +1,29 @@
+M-Pesa C2B Payment Gateway Changelog
+====================================
+
+Version 1.0.0 (2025-09-19)
+--------------------------
+- Initial release of M-Pesa C2B payment gateway
+- Support for STK Push payments
+- Callback handling for payment confirmations
+- Configuration interface for M-Pesa credentials
+- Sandbox and Live environment support
+- Integration with PHP Mikrotik Billing system
+
+Features:
+- Automatic STK Push to customer's phone
+- Real-time payment confirmation via callback
+- Secure API integration with M-Pesa Daraja
+- Comprehensive error handling and logging
+- Telegram notifications for errors
+
+Known Issues:
+- Requires valid M-Pesa C2B registration
+- Phone number validation for Kenyan numbers
+- Callback URL must be publicly accessible for live environment
+
+Future Enhancements:
+- Support for multiple currencies
+- B2C payments
+- Transaction reversal handling
+- Enhanced security features

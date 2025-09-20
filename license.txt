@@ -1,0 +1,48 @@
+M-Pesa C2B Payment Gateway License
+===================================
+
+Copyright (c) 2025 Kilo Code
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+M-Pesa API Terms
+----------------
+This module integrates with M-Pesa services provided by Safaricom PLC.
+By using this module, you agree to comply with:
+
+1. M-Pesa Developer Terms and Conditions
+2. Safaricom API Usage Policies
+3. All applicable laws and regulations regarding mobile money transactions
+
+You are responsible for:
+- Obtaining proper M-Pesa API credentials
+- Ensuring compliance with M-Pesa security requirements
+- Handling customer data in accordance with privacy laws
+- Maintaining the security of your payment systems
+
+Disclaimer
+----------
+This software is provided as-is. The author is not responsible for any
+financial losses, security breaches, or other damages resulting from the
+use of this software.
+
+Support
+-------
+This software is provided without official support. For issues or
+enhancements, please contact the developer or contribute to the project.
