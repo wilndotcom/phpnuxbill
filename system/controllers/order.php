@@ -503,7 +503,10 @@ switch ($action) {
         }
 
         $tax = Package::tax($plan['price'] + $add_cost, $tax_rate);
-        $pgs = array_values(explode(',', $config['payment_gateway']));
+        // Build payment gateway list from config, ignoring empty entries and trimming spaces
+        $pgs_raw = explode(',', (string)$config['payment_gateway']);
+        $pgs_trimmed = array_map('trim', $pgs_raw);
+        $pgs = array_values(array_filter($pgs_trimmed, function ($v) { return $v !== ''; }));
         if (count($pgs) == 0) {
             sendTelegram("Payment Gateway not set, please set it in Settings");
             _log(Lang::T("Payment Gateway not set, please set it in Settings"));
