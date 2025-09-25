@@ -128,13 +128,14 @@ try {
         unset($menus, $menu_registered);
         include($sys_render);
     } else {
-        if( empty($_SERVER["HTTP_SEC_FETCH_DEST"]) || $_SERVER["HTTP_SEC_FETCH_DEST"] != 'document' ){
-            // header 404
+        // Only send 404 for explicit non-document fetches. If the header is missing,
+        // treat it as a normal browser navigation and continue to login.
+        if (isset($_SERVER['HTTP_SEC_FETCH_DEST']) && $_SERVER['HTTP_SEC_FETCH_DEST'] !== 'document') {
             header("HTTP/1.0 404 Not Found");
             header("Content-Type: text/html; charset=utf-8");
             echo "404 Not Found";
             die();
-        }else{
+        } else {
             r2(getUrl('login'));
         }
     }

@@ -5,6 +5,9 @@
         <div class="panel panel-hovered mb20 panel-primary">
             <div class="panel-heading">
                 <div class="btn-group pull-right">
+                    <a class="btn btn-success btn-xs" title="preview" href="{$base_url}/system/hotspot_login.php" target="_blank">
+                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> preview
+                    </a>
                     <a class="btn btn-primary btn-xs" title="save" href="{Text::url('services/sync/hotspot')}"
                         onclick="return ask(this, 'This will sync/send hotspot package to Mikrotik?')"><span
                             class="glyphicon glyphicon-refresh" aria-hidden="true"></span> sync</a>

@@ -89,6 +89,10 @@ switch ($action) {
                         $pgs[] = str_replace('.php', '', $file);
                     }
                 }
+                // Explicitly add mpesac2b if not already in the list (due to potential pathinfo quirks)
+                if (!in_array('mpesac2b', $pgs)) {
+                    $pgs[] = 'mpesac2b';
+                }
                 $ui->assign('_title', 'Payment Gateway Settings');
                 $ui->assign('pgs', $pgs);
                 $ui->assign('actives', explode(',', $config['payment_gateway']));

@@ -150,109 +150,41 @@
         </div>
     </div>
 
-    <div class="panel" id="accordion" role="tablist" aria-multiselectable="true">
-        <div class="panel-heading" role="tab" id="LoginPage">
-            <h3 class="panel-title">
-                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseLoginPage"
-                    aria-expanded="true" aria-controls="collapseLoginPage">
-                    {Lang::T('Customer Login Page Settings')}
-                </a>
-            </h3>
+    <div class="panel">
+        <div class="panel-heading" role="tab" id="HotspotPreview">
+            <h3 class="panel-title">Hotspot Login Preview</h3>
         </div>
-        <div id="collapseLoginPage" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-            <div class="panel-body">
-                <div class="form-group">
-                    <label class="col-md-3 control-label">{Lang::T('Choose Template')}</label>
-                    <div class="col-md-5">
-                        <select name="login_page_type" id="login_page_type" class="form-control">
-                            <option value="default" {if $_c['login_page_type']=='default' }selected="selected" {/if}>
-                                {Lang::T('Default')}</option>
-                            <option value="custom" {if $_c['login_page_type']=='custom' }selected="selected" {/if}>
-                                {Lang::T('Custom')}</option>
-                        </select>
-                    </div>
-                    <span class="help-block col-md-4"><small>{Lang::T('Select your login template type')}</small></span>
+        <div class="panel-body">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" id="hs_live_preview"> Live Preview
+                </label>
+            </div>
+            <div id="hs_preview_wrap" style="display:none;border:1px solid #e5e5e5;border-radius:6px;padding:10px;background:#fff;">
+                <div style="position:relative;width:100%;height:0;padding-bottom:66%;overflow:hidden;background:#f5f5f5;border-radius:6px;">
+                    <iframe id="hs_preview_iframe" src="{$app_url}/system/hotspot_login.php" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;transform:scale(0.8);transform-origin:0 0;" title="Hotspot Preview"></iframe>
                 </div>
-                <div id="customFields" style="display: none;">
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">{Lang::T('Select Login Page')}</label>
-                        <div class="col-md-5">
-                            <select name="login_Page_template" id="login_Page_template" class="form-control">
-                                {foreach $template_files as $template}
-                                    <option value="{$template.value|escape}"
-                                        {if $_c['login_Page_template'] eq $template.value}selected="selected" {/if}>
-                                        {$template.name|escape}</option>
-                                {/foreach}
-                            </select>
-                        </div>
-                        <span
-                            class="help-block col-md-4"><small>{Lang::T('Select your preferred login template')}</small></span>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">{Lang::T('Page Heading / Company Name')}</label>
-                        <div class="col-md-5">
-                            <input type="text" class="form-control" id="login_page_head" name="login_page_head"
-                                value="{$_c['login_page_head']}">
-                        </div>
-                        <span
-                            class="help-block col-md-4"><small>{Lang::T('This Name will be shown on the login wallpaper')}</small></span>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">{Lang::T('Page Description')}</label>
-                        <div class="col-md-5">
-                            <textarea class="form-control" id="login_page_description" name="login_page_description"
-                                rows="3">{Lang::htmlspecialchars($_c['login_page_description'])}</textarea>
-                        </div>
-                        <span
-                            class="help-block col-md-4"><small>{Lang::T('This will also display on wallpaper, You can use html tag')}</small></span>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">{Lang::T('Favicon')}</label>
-                        <div class="col-md-5">
-                            <input type="file" class="form-control" id="login_page_favicon" name="login_page_favicon"
-                                accept="image/*">
-                            <span
-                                class="help-block"><small>{Lang::T('Best size 30 x 30 | uploaded image will be autosize')}</small></span>
-                        </div>
-                        <span class="help-block col-md-4">
-                            <a href="./{$favicon}" target="_blank"><img src="./{$favicon}" height="48"
-                                    alt="Favicon"></a>
-                        </span>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">{Lang::T('Login Page Logo')}</label>
-                        <div class="col-md-5">
-                            <input type="file" class="form-control" id="login_page_logo" name="login_page_logo"
-                                accept="image/*">
-                            <span
-                                class="help-block"><small>{Lang::T('Best size 300 x 60 | uploaded image will be autosize')}</small></span>
-                        </div>
-                        <span class="help-block col-md-4">
-                            <a href="./{$login_logo}" target="_blank"><img src="./{$login_logo}" height="48"
-                                    alt="Logo"></a>
-                        </span>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">{Lang::T('Login Page Wallpaper')}</label>
-                        <div class="col-md-5">
-                            <input type="file" class="form-control" id="login_page_wallpaper"
-                                name="login_page_wallpaper" accept="image/*">
-                            <span
-                                class="help-block"><small>{Lang::T('Best size 1920 x 1080 | uploaded image will be autosize')}</small></span>
-                        </div>
-                        <span class="help-block col-md-4">
-                            <a href="./{$wallpaper}" target="_blank"><img src="./{$wallpaper}" height="48"
-                                    alt="Wallpaper"></a>
-                        </span>
-                    </div>
-                </div>
-
-                <button class="btn btn-success btn-block" name="general" type="submit">
-                    {Lang::T('Save Changes')}
-                </button>
+                <p class="help-block" style="margin-top:8px;">
+                    <small>This preview shows a scaled-down version of your hotspot pricing page.</small>
+                </p>
             </div>
         </div>
     </div>
+    {literal}
+    <script>
+    (function(){
+        var cb=document.getElementById('hs_live_preview');
+        var wrap=document.getElementById('hs_preview_wrap');
+        if(cb&&wrap){
+            cb.addEventListener('change',function(){
+                wrap.style.display=this.checked?'block':'none';
+            });
+        }
+    })();
+    </script>
+    {/literal}
+
+    
 
     <div class="panel">
         <div class="panel-heading" role="tab" id="Registration">

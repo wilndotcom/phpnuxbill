@@ -131,6 +131,15 @@ if(empty($config['dashboard_Customer'])){
 
 
 $_c =  $config;
+// Merge AI config from config.php into $_c so templates can access them
+if (isset($ai_enabled)) { $_c['ai_enabled'] = $ai_enabled ? 1 : 0; }
+if (isset($ai_provider)) { $_c['ai_provider'] = $ai_provider; }
+if (isset($ai_api_key)) { $_c['ai_api_key'] = !empty($ai_api_key) ? 'set' : ''; }
+if (isset($ai_base_url)) { $_c['ai_base_url'] = $ai_base_url; }
+if (isset($ai_model)) { $_c['ai_model'] = $ai_model; }
+if (isset($ai_max_tokens)) { $_c['ai_max_tokens'] = (int)$ai_max_tokens; }
+if (isset($ai_temperature)) { $_c['ai_temperature'] = (float)$ai_temperature; }
+if (isset($ai_rag_enabled)) { $_c['ai_rag_enabled'] = $ai_rag_enabled ? 1 : 0; }
 if (empty($http_proxy) && !empty($config['http_proxy'])) {
     $http_proxy = $config['http_proxy'];
     if (empty($http_proxyauth) && !empty($config['http_proxyauth'])) {

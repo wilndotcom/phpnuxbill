@@ -18,6 +18,11 @@
     Allow from all
 </Files>
 
+<Files system/api.php>
+    Order Allow,Deny
+    Allow from all
+</Files>
+
 RewriteEngine On
 RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-f
