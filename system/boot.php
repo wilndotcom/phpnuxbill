@@ -146,6 +146,9 @@ try {
             $e->getTraceAsString()
     );
     if (empty($_SESSION['aid'])) {
+        if ($_app_stage != 'Live') {
+            die($e->getMessage() . '<br><pre>' . $e->getTraceAsString() . '</pre>');
+        }
         $ui->display('customer/error.tpl');
         die();
     }
@@ -160,6 +163,9 @@ try {
             $e->getTraceAsString()
     );
     if (empty($_SESSION['aid'])) {
+        if ($_app_stage != 'Live') {
+            die($e->getMessage() . '<br><pre>' . $e->getTraceAsString() . '</pre>');
+        }
         $ui->display('customer/error.tpl');
         die();
     }
